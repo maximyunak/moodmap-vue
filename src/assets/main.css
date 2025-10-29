@@ -14,10 +14,13 @@
   color: #fff;
   opacity: 0;
   transform: translateY(-10px);
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .notify.active {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(0px);
 }
 

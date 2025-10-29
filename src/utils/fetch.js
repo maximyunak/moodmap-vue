@@ -5,20 +5,20 @@ export const handleResponse = async (res) => {
     if (data.data) return data.data
     return data
   } else if (res.status >= 400 && res.status < 500) {
-    const data = Response.json()
+    const data = await res.json()
     const message = []
 
     if (data.message) message.push(data.message)
-    if (data.errors) message.push(data.errors)
+    if (data.errors) message.push(Object.values(data.errors))
 
     const id = Math.random().toString(36).substring(2, 8)
 
     document.body.insertAdjacentHTML(
       'beforeend',
-      `<span id="${id}" class="notify">${message.join('<br />')}</span>`,
+      `<span id="${id}" class="notify">${message.join('<br  />')}</span>`,
     )
 
-    const el = document.findElementById(id)
+    const el = document.getElementById(id)
 
     setTimeout(() => {
       el.classList.add('active')
