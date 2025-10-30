@@ -36,7 +36,7 @@ export const $fetch = async (path, method = 'get', body) => {
   const url = new URL('http://localhost:8000/api' + path)
 
   const headers = {
-    Authorization: 'Bearer' + localStorage.getItem('token'),
+    Authorization: 'Bearer ' + localStorage.getItem('token'),
   }
 
   if (!body || method === 'get') {

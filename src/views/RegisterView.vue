@@ -6,7 +6,16 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const submit = async (event) => {
+  const password = event.target.password
+  const repeat = event.target.repeat
+  if (password.value !== repeat.value) {
+    repeat.insertAdjacentHTML('afterend', `<div class="error">Введенные пароли не совпадают</div>`)
+    password.setCustomValidity(true)
+    return
+  }
+
   const res = await $fetch('/auth/register', 'post', new FormData(event.target))
+
   if (res?.data?.errors) {
     for (let name in res.data.errors) {
       const input = document.querySelector(`input[name=${name}]`)
@@ -53,7 +62,7 @@ onMounted(() =>
       </div>
       <div class="form-block">
         <label for="register-repeat-password">Повтор пароля</label>
-        <input type="password" name="repeat-password" placeholder="repeat password" />
+        <input type="password" name="repeat" placeholder="repeat password" />
       </div>
       <button>Зарегистрироваться</button>
       <RouterLink to="/login">Есть аккаут? Войти</RouterLink>
