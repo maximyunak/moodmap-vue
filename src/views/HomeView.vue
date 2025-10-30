@@ -35,7 +35,7 @@ feedbacks.value = (await $fetch('/feedbacks')).data.items
 
   <section id="contact">
     <h2>Свяжитесь с нами</h2>
-    <form>
+    <form @submit.prevent="">
       <div class="form-block">
         <label for="form-phone">Номер телефона</label>
         <input type="text" placeholder="Номер телефона" />
@@ -84,7 +84,7 @@ section {
 
 footer {
   margin-top: 60px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
   div {
     display: flex;
     justify-content: space-between;

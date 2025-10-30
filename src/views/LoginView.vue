@@ -32,15 +32,16 @@ onMounted(() =>
 </script>
 
 <template>
-  <div>
+  <div class="auth">
     <form @submit.prevent="submit">
+      <h2>Вход</h2>
       <div class="form-block">
         <label for="form-email">Email</label>
-        <input type="text" name="email" />
+        <input type="text" name="email" placeholder="email" />
       </div>
       <div class="form-block">
         <label for="form-password">Пароль</label>
-        <input type="password" name="password" />
+        <input type="password" name="password" placeholder="password" />
       </div>
       <button type="submit">Войти</button>
       <RouterLink to="/register">Нет аккаунта? Зарегестрироваться</RouterLink>
