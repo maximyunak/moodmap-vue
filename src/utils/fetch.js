@@ -1,9 +1,6 @@
 export const handleResponse = async (res) => {
   if (res.status >= 200 && res.status < 400) {
-    const data = await res.json()
-
-    if (data.data) return data.data
-    return data
+    return await res.json()
   } else if (res.status >= 400 && res.status < 500) {
     const data = await res.json()
     const message = []

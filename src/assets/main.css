@@ -4,6 +4,7 @@
   margin: 0;
   font-family: sans-serif;
   transition: 0.3s ease;
+  scroll-behavior: smooth;
 }
 
 .notify {
@@ -36,4 +37,27 @@ a:hover {
 h2 {
   font-size: 30px;
   font-weight: 700;
+}
+
+.error {
+  color: red;
+  animation: 0.3s err linear;
+}
+
+@keyframes err {
+  0% {
+    transform: translateX(2px);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(2px);
+  }
 }

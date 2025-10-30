@@ -3,6 +3,14 @@ import { $fetch } from '@/utils/fetch'
 
 const submit = async (event) => {
   const res = await $fetch('/auth/register', 'post', new FormData(event.target))
+  if (res?.data?.errors) {
+    for (let name in res.data.errors) {
+      const input = document.querySelector(`input[name=${name}]`)
+
+      input.insertAdjacentHTML('afterend', `<div class="error">${res.data.errors[name]}</div>`)
+      input.setCustomValidity(true)
+    }
+  }
 }
 </script>
 
@@ -10,9 +18,9 @@ const submit = async (event) => {
   <div>
     <form @submit.prevent="submit">
       <div class="form-group">
-        <label for="register-last_name">Фамилия</label>
         <input type="text" name="last_name" />
       </div>
+      <label for="register-last_name">Фамилия</label>
       <div class="form-group">
         <label for="register-first_name">Имя</label>
         <input type="text" name="first_name" />

@@ -7,11 +7,7 @@ const token = computed(() => store.value.token)
 
 const feedbacks = ref([])
 
-feedbacks.value = (await $fetch('/feedbacks')).items
-
-// console.log(feedbacks.value.items)
-
-console.log(feedbacks)
+feedbacks.value = (await $fetch('/feedbacks')).data.items
 </script>
 
 <template>
@@ -35,6 +31,25 @@ console.log(feedbacks)
   <section id="reviews">
     <h2>Недавние отзывы</h2>
     <div v-for="feedback in feedbacks">{{ feedback?.id }} {{ feedback?.emotion }}</div>
+  </section>
+
+  <section id="contact">
+    <h2>Свяжитесь с нами</h2>
+    <form>
+      <div class="form-block">
+        <label for="form-phone">Номер телефона</label>
+        <input type="text" placeholder="Номер телефона" />
+      </div>
+      <div class="form-block">
+        <label for="form-name">Имя</label>
+        <input type="text" placeholder="Имя" />
+      </div>
+      <div class="form-block">
+        <label for="form-message">Сообщение</label>
+        <textarea type="text" placeholder="Номер телефона" />
+      </div>
+      <button type="submit">Связаться</button>
+    </form>
   </section>
 
   <footer>
@@ -69,6 +84,7 @@ section {
 
 footer {
   margin-top: 60px;
+  padding-bottom: 60px;
   div {
     display: flex;
     justify-content: space-between;
