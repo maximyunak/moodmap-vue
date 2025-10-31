@@ -13,6 +13,7 @@ const token = computed(() => store.value.token)
         <router-link to="/#about">О нас</router-link>
         <router-link to="/#contact">Свяжитесь с нами</router-link>
         <RouterLink to="/feedbacks">Отзывы</RouterLink>
+        <RouterLink to="/locations">Локации</RouterLink>
         <RouterLink to="/login" v-if="!token">Войти</RouterLink>
         <RouterLink to="/register" v-if="!token">Регистрация</RouterLink>
         <RouterLink to="/profile" v-if="token">Личный кабинет</RouterLink>

@@ -3,11 +3,29 @@ import { $fetch } from '@/utils/fetch'
 import { store } from '@/utils/token'
 import { computed, ref } from 'vue'
 
-const token = computed(() => store.value.token)
-
 const feedbacks = ref([])
 
 feedbacks.value = (await $fetch('/feedbacks')).data.items.splice(0, 5)
+
+const fade = ref(false)
+const index = ref(0)
+
+const animate = () => {
+  fade.value = true
+
+  setTimeout(() => (fade.value = false), 500)
+}
+
+const next = () => {
+  index.value = (index.value + 1) % Math.min(feedbacks.value.length, 3)
+  animate()
+}
+
+const prev = () => {
+  index.value =
+    (index.value - 1 + Math.min(feedbacks.value.length, 3)) % Math.min(feedbacks.value.length, 3)
+  animate()
+}
 </script>
 
 <template>
@@ -18,7 +36,20 @@ feedbacks.value = (await $fetch('/feedbacks')).data.items.splice(0, 5)
 
   <section id="reviews">
     <h2>Недавние отзывы</h2>
-    <div v-for="feedback in feedbacks">{{ feedback?.id }} {{ feedback?.emotion }}</div>
+    <div class="slider">
+      <button @click="prev" class="btn-nav"><</button>
+      <div
+        :class="{
+          fade,
+        }"
+      >
+        <div v-for="feedback in feedbacks.slice(index, index + 3)" class="card" :key="feedback.id">
+          <p>{{ feedback?.id }}.</p>
+          {{ feedback?.emotion }}
+        </div>
+      </div>
+      <button @click="next" class="btn-nav">></button>
+    </div>
   </section>
 
   <section id="contact">

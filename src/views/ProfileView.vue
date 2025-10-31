@@ -18,6 +18,11 @@ myFeedbacks.value = (await $fetch('/feedbacks/my')).data
       <h2>Вы не оставили ни отдого отзыва</h2>
       <RouterLink to="/locations">Напишите свой первый отзыв</RouterLink>
     </div>
+    <div v-for="item in myFeedbacks" :key="item.id">
+      <div class="card">
+        <h3>{{ item.emotion }}</h3>
+      </div>
+    </div>
   </div>
 </template>
 

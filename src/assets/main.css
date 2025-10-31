@@ -112,3 +112,86 @@ form {
   align-items: center;
   min-height: 100vh;
 }
+
+.modal {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  /*height: 100%;*/
+  background-color: #f2f2f2;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.modal_container {
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+.modal.active, .modal_container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card {
+  background-color: #f2f2f2;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cards {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.fade {
+  animation: 0.5s fade;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.slider > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  width: 100%;
+}
