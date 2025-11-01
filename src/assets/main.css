@@ -196,3 +196,9 @@ h3 {
   gap: 50px;
   width: 100%;
 }
+
+
+.paginate {
+  display: flex;
+  gap:5px;
+}
