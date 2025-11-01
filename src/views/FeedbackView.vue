@@ -27,6 +27,12 @@ watch(
   () => route.query.page,
   () => get(),
 )
+
+// const getUser = async (id) => {
+//   const res = await $fetch(`/feedbacks/${id}`)
+// }
+
+const modal = ref(false)
 </script>
 
 <template>
@@ -39,11 +45,32 @@ watch(
     </div>
     <!--    </form>-->
     <div class="cards">
-      <div class="card" v-for="item in feedbacks.items" :key="item.id">
+      <div @click="modal = true" class="card" v-for="item in feedbacks.items" :key="item.id">
         <h3>{{ item?.id }}. {{ item?.emotion }}</h3>
         <p>{{ item?.comment }}</p>
+
+        <div
+          :class="{
+            active: modal,
+          }"
+          class="modal form"
+        >
+          <img :src="item?.user?.avatar" alt="avatar" />
+          <h3>
+            {{ item?.user?.first_name }} {{ item?.user?.last_name }} {{ item?.user?.patronymic }}
+          </h3>
+          <p>{{ item?.emotion }}</p>
+          <h3>{{ item?.location }}</h3>
+        </div>
       </div>
     </div>
+    <div
+      @click="modal = false"
+      class="modal_container"
+      :class="{
+        active: modal,
+      }"
+    ></div>
     <div class="paginate">
       <RouterLink
         :to="`/feedbacks?page=${id + 1}`"
