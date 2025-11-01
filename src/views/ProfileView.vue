@@ -12,6 +12,7 @@ const active = ref()
 
 const submit = async (event) => {
   const res = await $fetch(`/feedbacks/${active.value}`, 'post', new FormData(event.target))
+  document.querySelectorAll('.error').forEach((e) => e.remove())
 
   if (res.data.errors) {
     for (const key in res.data.errors) {
@@ -36,58 +37,60 @@ onMounted(() => {
 </script>
 
 <template>
-  <h2>Личный кабинет</h2>
-  <img :src="user.avatar" alt="avatar" />
-  <h3>{{ user?.id }}. {{ user?.first_name }} {{ user?.last_name }} {{ user?.patronymic }}</h3>
+  <div>
+    <h2>Личный кабинет</h2>
+    <img :src="user.avatar" alt="avatar" />
+    <h3>{{ user?.id }}. {{ user?.first_name }} {{ user?.last_name }} {{ user?.patronymic }}</h3>
 
-  <div class="cards">
-    <div v-if="myFeedbacks.length === 0" class="nothing">
-      <h2>Вы не оставили ни отдого отзыва</h2>
-      <RouterLink to="/locations">Напишите свой первый отзыв</RouterLink>
-    </div>
-    <div v-for="item in myFeedbacks" :key="item.id">
-      <div class="card">
-        <h3>{{ item?.id }}. {{ item?.emotion }}</h3>
-        <p>{{ item?.comment }}</p>
-        <p>status: {{ item?.status }}</p>
-        <button @click="onEdit(item?.id)" v-if="item?.status === 'APPROVED'">
-          Отредактировать
-        </button>
-        <form
-          id="feedback"
-          class="modal"
-          @submit.prevent="submit"
-          :class="{
-            active: modal,
-          }"
-        >
-          <div class="form-block">
-            <label for="form-emotion"> Эмоция </label>
-
-            <select name="emotion" id="form-emotion">
-              <option value="SAD">SAD</option>
-              <option value="ANGRY">ANGRY</option>
-              <option value="HAPPY">HAPPY</option>
-            </select>
-          </div>
-          <div class="form-block">
-            <label for="form-commetn">Комментарий</label>
-            <input type="text" placeholder="Комментарий" />
-          </div>
-          <input type="hidden" :value="item?.id" name="id" />
-          <input type="hidden" value="PATCH" name="_method" />
-
-          <button>Отредактировать</button>
-        </form>
+    <div class="cards">
+      <div v-if="myFeedbacks.length === 0" class="nothing">
+        <h2>Вы не оставили ни отдого отзыва</h2>
+        <RouterLink to="/locations">Напишите свой первый отзыв</RouterLink>
       </div>
+      <div v-for="item in myFeedbacks" :key="item.id">
+        <div class="card">
+          <h3>{{ item?.id }}. {{ item?.emotion }}</h3>
+          <p>{{ item?.comment }}</p>
+          <p>status: {{ item?.status }}</p>
+          <button @click="onEdit(item?.id)" v-if="item?.status === 'APPROVED'">
+            Отредактировать
+          </button>
+          <form
+            id="feedback"
+            class="modal"
+            @submit.prevent="submit"
+            :class="{
+              active: modal,
+            }"
+          >
+            <div class="form-block">
+              <label for="form-emotion"> Эмоция </label>
+
+              <select name="emotion" id="form-emotion">
+                <option value="SAD">SAD</option>
+                <option value="ANGRY">ANGRY</option>
+                <option value="HAPPY">HAPPY</option>
+              </select>
+            </div>
+            <div class="form-block">
+              <label for="form-commetn">Комментарий</label>
+              <input type="text" placeholder="Комментарий" />
+            </div>
+            <input type="hidden" :value="item?.id" name="id" />
+            <input type="hidden" value="PATCH" name="_method" />
+
+            <button>Отредактировать</button>
+          </form>
+        </div>
+      </div>
+      <div
+        @click="modal = false"
+        class="modal_container"
+        :class="{
+          active: modal,
+        }"
+      ></div>
     </div>
-    <div
-      @click="modal = false"
-      class="modal_container"
-      :class="{
-        active: modal,
-      }"
-    ></div>
   </div>
 </template>
 

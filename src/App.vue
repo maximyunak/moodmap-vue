@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { store } from './utils/token'
 
 const token = computed(() => store.value.token)
+const user = computed(() => store.value.user)
 </script>
 
 <template>
@@ -17,6 +18,7 @@ const token = computed(() => store.value.token)
         <RouterLink to="/#/login" v-if="!token">Войти</RouterLink>
         <RouterLink to="/register" v-if="!token">Регистрация</RouterLink>
         <RouterLink to="/profile" v-if="token">Личный кабинет</RouterLink>
+        <RouterLink to="/admin">Админка</RouterLink>
       </nav>
     </header>
     <Suspense>

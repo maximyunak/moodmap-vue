@@ -10,6 +10,8 @@ locations.value = (await $fetch('/locations')).data
 
 const submit = async (event) => {
   const res = await $fetch('/feedbacks', 'post', new FormData(event.target))
+  document.querySelectorAll('.error').forEach((e) => e.remove())
+
   if (res?.data?.errors) {
     for (let key in res?.data?.errors) {
       const field = document.querySelector(`[name="${key}"]`)
