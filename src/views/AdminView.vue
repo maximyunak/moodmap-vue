@@ -74,7 +74,7 @@ const createLocation = async (event) => {
   <div>
     <h2>Админ панель</h2>
     <h3>Отзывы со статусом CREATED</h3>
-    <div class="cards">
+    <div v-if="created.length !== 0" class="cards">
       <div class="card" v-for="item in created" :key="item?.id">
         <h3>{{ item?.id }}. {{ item?.emotion }}</h3>
         <p>{{ item?.comment }}</p>
@@ -82,6 +82,7 @@ const createLocation = async (event) => {
         <button @click="onEdit(item?.id)">Изменить статус</button>
       </div>
     </div>
+    <h3 v-else>Нет непроверенных отзывов</h3>
     <form
       @submit.prevent="saveStatus"
       class="modal form"
